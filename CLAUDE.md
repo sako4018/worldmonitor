@@ -23,6 +23,8 @@ The upstream `AGENTS.md` above is the main engineering guide (architecture bound
 - `npm run generate` / `npm run sync:locales` also rewrite marketing counts (index.html, docs, blog, product facts) and the other 27 locales. Revert those and keep only runtime files, `bg.json` and `en.json`, to keep upstream merges small.
 - Adding names to `DEFAULT_ENABLED_SOURCES` in `src/config/feeds.ts` breaks `tests/feed-catalog-drift.test.mts` (free-cap rules); keep extra feeds opt-in.
 - Look: `src/styles/fork-theme.css` (imported at the top of `main.css`) overrides theme tokens with `html:root` / `html[data-theme]` specificity, removes forced uppercase with one `!important` rule, and puts Helvetica Neue first (SF Pro turns Cyrillic into Bulgarian letter shapes under `lang="bg"`; the owner wants standard shapes). System font is the default in `src/services/font-settings.ts`.
+- Border files must have RFC 7946 winding (exterior rings counter-clockwise, holes clockwise). Natural Earth is clockwise; the flat map does not care but the 3D globe then fills the whole sphere red. `scripts/fetch-world-boundary-overrides.mjs` rewinds every ring.
+- Map defaults: `DEFAULT_MAP_MODE = 'globe'` (`src/config/variants/base.ts`) and the desktop start view `DEFAULT_DESKTOP_VIEW = 'eu'` (`src/config/fork.ts`). The globe loads lazily (~20 s in dev) and then rotates to the view.
 - Screenshots: the owner works on the Mac at the same time, so prefer headless Chrome (`--headless=new --screenshot`) over full-screen captures; it does not draw the WebGL map.
 - The `.husky` hooks are not active here (`core.hooksPath` unset).
 
