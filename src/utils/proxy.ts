@@ -1,4 +1,7 @@
 import { isDesktopRuntime, toApiUrl, toRuntimeUrl } from '../services/runtime';
+import { STATIC_SITE } from '@/config/fork';
+import { assetUrl } from './asset-url';
+import { staticRssKey } from './static-rss';
 import { getPersistentCache, setPersistentCache } from '../services/persistent-cache';
 
 const isDev = import.meta.env.DEV;
@@ -34,6 +37,8 @@ export function widgetAgentHealthUrl(): string {
 }
 
 export function rssProxyUrl(feedUrl: string): string {
+  // Fork: static hosting reads a pre-fetched copy of the feed instead of calling a server proxy.
+  if (STATIC_SITE) return assetUrl(`rss/${staticRssKey(feedUrl)}.xml`);
   // Desktop fetches through the sidecar's rss-proxy. The WebView cannot read
   // publisher feeds directly (CORS), and the relay's CORS excludes tauri://.
   if (isDesktopRuntime()) return `/api/rss-proxy?url=${encodeURIComponent(feedUrl)}`;

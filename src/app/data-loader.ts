@@ -1,4 +1,5 @@
 import type { AppContext, AppModule } from '@/app/app-context';
+import { STATIC_SITE } from '@/config/fork';
 import { fetchUkmtoIncidents } from '@/services/ukmto-incidents';
 import { getRpcBaseUrl } from '@/services/rpc-client';
 import { isReportableCanadaRoad } from '@/services/canada-road-report';
@@ -489,8 +490,9 @@ export class DataLoaderManager implements AppModule {
   private readonly digestFirstPaintGraceMs = 1500;
   private readonly digestBreakerCooldownMs = 5 * 60 * 1000;
   private readonly persistedDigestMaxAgeMs = 6 * 60 * 60 * 1000;
-  private readonly outageFallbackCategoryFeedLimit = 3;
-  private readonly outageFallbackIntelFeedLimit = 6;
+  // Fork: static files are cheap to read, so the static site reads more feeds per panel.
+  private readonly outageFallbackCategoryFeedLimit = STATIC_SITE ? 10 : 3;
+  private readonly outageFallbackIntelFeedLimit = STATIC_SITE ? 12 : 6;
   private readonly outageFallbackBatchSize = 2;
   /**
    * Ceiling on a cross-edition panel's merged item set. A category placed in
@@ -983,6 +985,7 @@ export class DataLoaderManager implements AppModule {
    * on the shared proxy at once.
    */
   private isNewsOutageFallbackEnabled(): boolean {
+    if (STATIC_SITE) return true; // fork: no digest server on static hosting; read the pre-fetched feeds
     return isDesktopRuntime() && isFeatureEnabled('newsOutageFallback');
   }
 

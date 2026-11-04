@@ -18,3 +18,10 @@ export const FORK_VIEW_PRESETS: Record<string, { lat: number; lon: number; zoom:
   'fork:bg': { lat: 42.7, lon: 25.4, zoom: 6.3, globeZoom: 4.4 },
   'fork:caucasus': { lat: 40.8, lon: 44.8, zoom: 5.8, globeZoom: 3.9 },
 };
+
+/**
+ * Static hosting (GitHub Pages) has no /api. When built with VITE_STATIC_SITE=1, RSS feeds are read
+ * from pre-fetched files under rss/ (see scripts/fork-fetch-static-rss.mjs) and the news panels fall
+ * back to reading feeds directly instead of waiting for a server digest.
+ */
+export const STATIC_SITE: boolean = import.meta.env?.VITE_STATIC_SITE === '1';
