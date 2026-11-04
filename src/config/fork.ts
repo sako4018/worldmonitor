@@ -25,3 +25,9 @@ export const FORK_VIEW_PRESETS: Record<string, { lat: number; lon: number; zoom:
  * back to reading feeds directly instead of waiting for a server digest.
  */
 export const STATIC_SITE: boolean = import.meta.env?.VITE_STATIC_SITE === '1';
+
+/** The technical "Digest coverage: ..." line in the footer means nothing to the owner. */
+export const HIDE_DIGEST_STATUS = true;
+
+/** The "Слоеве" (layers) panel covers a large part of the map, so it starts collapsed. */
+export const LAYERS_PANEL_COLLAPSED = true;

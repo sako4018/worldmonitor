@@ -14,6 +14,7 @@
  *  - Auto-rotate after 60 s of inactivity
  */
 
+import { LAYERS_PANEL_COLLAPSED } from '@/config/fork';
 import Globe from 'globe.gl';
 import { ukmtoIncidentLabel, type UkmtoMapIncident } from '../../shared/ukmto-incidents';
 import { isDesktopRuntime } from '@/services/runtime';
@@ -2142,7 +2143,12 @@ export class GlobeMap {
 
     const collapseBtn = el.querySelector('.toggle-collapse');
     const list = el.querySelector('.toggle-list') as HTMLElement | null;
-    let collapsed = false;
+    let collapsed = LAYERS_PANEL_COLLAPSED; // fork: start collapsed
+    if (collapsed) {
+      if (list) list.style.display = 'none';
+      if (searchEl) searchEl.style.display = 'none';
+      if (collapseBtn) setTrustedHtml((collapseBtn as HTMLElement), trustedHtml('&#9654;', "legacy direct innerHTML migration"));
+    }
     collapseBtn?.addEventListener('click', () => {
       collapsed = !collapsed;
       if (list) list.style.display = collapsed ? 'none' : '';

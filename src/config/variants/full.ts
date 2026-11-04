@@ -70,7 +70,7 @@ export const DEFAULT_MAP_LAYERS: MapLayers = {
   nuclear: true,
   irradiators: false,
   sanctions: true,
-  weather: true,
+  weather: false, // fork: the rain radar speckles the whole world map; turn it on in Layers when needed
   // Opt-in: all five road feeds are on-demand bootstrap keys. Default-on made
   // every visitor fetch them, which is exactly what the on-demand tier is meant
   // to prevent. Narrowest surface on the map, so it follows military/flights/fires
@@ -141,7 +141,7 @@ export const MOBILE_DEFAULT_MAP_LAYERS: MapLayers = {
   nuclear: false,
   irradiators: false,
   sanctions: true,
-  weather: true,
+  weather: false, // fork: the rain radar speckles the whole world map; turn it on in Layers when needed
   canadaRoads: false,
   canadaAlerts: false,
   economic: false,

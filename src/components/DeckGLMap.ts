@@ -3,6 +3,7 @@
  * Uses deck.gl for high-performance rendering of large datasets
  * Mobile devices gracefully degrade to the D3/SVG-based Map component
  */
+import { LAYERS_PANEL_COLLAPSED } from '@/config/fork';
 import { MapLibreOverlay } from '@deck.gl/maplibre';
 import type { Layer, LayersList, PickingInfo } from '@deck.gl/core';
 import { GeoJsonLayer, ScatterplotLayer, PathLayer, IconLayer, TextLayer, PolygonLayer } from '@deck.gl/layers';
@@ -6201,6 +6202,12 @@ export class DeckGLMap {
     bindLayerSearch(toggles);
     const searchEl = toggles.querySelector('.layer-search') as HTMLElement | null;
 
+    if (LAYERS_PANEL_COLLAPSED) { // fork: start collapsed
+      toggleList?.classList.add('collapsed');
+      if (searchEl) searchEl.style.display = 'none';
+      if (collapseBtn) setTrustedHtml(collapseBtn, trustedHtml('&#9654;', "legacy direct innerHTML migration"));
+    }
+
     collapseBtn?.addEventListener('click', () => {
       toggleList?.classList.toggle('collapsed');
       if (searchEl) searchEl.style.display = toggleList?.classList.contains('collapsed') ? 'none' : '';
@@ -6519,7 +6526,7 @@ export class DeckGLMap {
       <div style="display:flex;align-items:center;gap:2px;margin-top:2px;">
         <div style="width:100%;height:8px;border-radius:3px;background:linear-gradient(to right,#28b33e,#dcc030,#e87425,#dc2626,#7f1d1d);"></div>
       </div>
-      <div style="display:flex;justify-content:space-between;font-size:calc(8px * var(--wm-panel-effective-scale, 1));opacity:0.7;margin-top:1px;">
+      <div style="display:flex;justify-content:space-between;gap:8px;min-width:150px;font-size:calc(8px * var(--wm-panel-effective-scale, 1));opacity:0.7;margin-top:1px;">
         <span>0</span><span>31</span><span>51</span><span>66</span><span>81</span><span>100</span>
       </div>
     `, "legacy direct innerHTML migration"));

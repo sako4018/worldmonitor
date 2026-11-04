@@ -1,4 +1,5 @@
 import { SITE_VARIANT } from '@/config';
+import { HIDE_DIGEST_STATUS } from '@/config/fork';
 import { h } from '@/utils/dom-utils'; // kept for Panel base class compat
 
 export type StatusLevel = 'ok' | 'warning' | 'error' | 'disabled';
@@ -108,6 +109,7 @@ export class StatusPanel extends Panel {
    */
   public updateDigestCoverage(coverage: DigestCoverageSummary): void {
     this.digestCoverage = coverage;
+    if (HIDE_DIGEST_STATUS) return; // fork: technical text, not useful on the page
     const explanation = DIGEST_COVERAGE_EXPLANATIONS[coverage.state];
     const missing = coverage.missingCategories.length > 0
       ? ` (no completed feed: ${coverage.missingCategories.slice(0, 4).join(', ')}${coverage.missingCategories.length > 4 ? ', …' : ''})`
