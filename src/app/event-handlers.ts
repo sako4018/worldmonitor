@@ -4,6 +4,7 @@ import type {
   UnifiedSettingsController,
   UnifiedSettingsTabId,
 } from '@/app/app-context';
+import { HIDE_PREMIUM } from '@/config/fork';
 import { applyVisibleMapDimension } from '@/app/map-dimension-control';
 import type { UnifiedSettingsConfig } from '@/components/UnifiedSettings';
 import type { AirlineIntelPanel } from '@/components/AirlineIntelPanel';
@@ -109,7 +110,7 @@ import { mlWorker } from '@/services/ml-worker';
 import { WM_OPEN_NOTIFICATIONS_FOR_COUNTRY } from '@/utils/notify-country-link';
 import { AuthLauncher } from '@/components/AuthLauncher';
 import { AuthHeaderWidget } from '@/components/AuthHeaderWidget';
-import { t } from '@/services/i18n';
+import { t, getCurrentLanguage } from '@/services/i18n';
 import { getPanelDisplayName } from '@/services/panel-display-name';
 import { TvModeController } from '@/services/tv-mode';
 import { getAuthState, subscribeAuthState } from '@/services/auth-state';
@@ -2072,7 +2073,14 @@ export class EventHandlerManager implements AppModule {
     const el = document.getElementById('headerClock');
     if (!el) return;
     const tick = () => {
-      el.textContent = new Date().toUTCString().replace('GMT', 'UTC');
+      try {
+        el.textContent = new Intl.DateTimeFormat(getCurrentLanguage(), {
+          weekday: 'short', year: 'numeric', month: '2-digit', day: '2-digit',
+          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false,
+        }).format(new Date()).replace(/\s?г\./, '');
+      } catch {
+        el.textContent = new Date().toUTCString().replace('GMT', 'UTC');
+      }
     };
     tick();
     this.clockIntervalId = setInterval(tick, 1000);
@@ -2198,6 +2206,7 @@ export class EventHandlerManager implements AppModule {
       const panelEl = this.ctx.exportPanel?.getElement();
       if (panelEl) panelEl.style.display = 'none';
       lockedReason = reason;
+      if (HIDE_PREMIUM) return;
       if (lockedControl) {
         lockedControl.update(reason);
         return;
@@ -2414,6 +2423,12 @@ export class EventHandlerManager implements AppModule {
     // The standalone gear remains available to every user. Signed-in users
     // also get explicit Settings and Plan & billing destinations inside the
     // avatar menu, keeping account and subscription actions in one place.
+    if (HIDE_PREMIUM) {
+      for (const id of ['mobileAuthWidgetMount', 'mobileAuthFallback']) {
+        document.getElementById(id)?.setAttribute('hidden', '');
+      }
+      return;
+    }
     const widget = new AuthHeaderWidget(
       () => modal.open(),
       () => this.ctx.unifiedSettings?.open('settings'),

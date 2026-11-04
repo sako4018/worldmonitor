@@ -1,4 +1,5 @@
 import type { Monitor, PanelConfig, MapLayers } from '@/types';
+import { HIDE_PREMIUM } from '@/config/fork';
 import { WEB_APP_ORIGIN } from '@/config/web-origin';
 import {
   isStockResearchPath,
@@ -3738,6 +3739,7 @@ export class App {
     body.append(title, detail);
 
     const action = document.createElement('button');
+    action.hidden = HIDE_PREMIUM;
     action.type = 'button';
     action.className = 'update-toast-action';
     action.dataset.action = 'upgrade';

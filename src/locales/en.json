@@ -1512,7 +1512,8 @@
         "canadaRoads": "Canada Roads",
         "canadaAlerts": "Canada Alerts",
         "notamAirspace": "NOTAM Airspace Restrictions",
-        "no2Activity": "Industrial Activity"
+        "no2Activity": "Industrial Activity",
+        "radiationWatch": "Radiation Watch"
       },
       "tooltip": {
         "earthquake": "Earthquake",
@@ -4720,5 +4721,18 @@
     "reportedClaims": "Publisher reports. Claims may remain under investigation.",
     "occurred": "Incident",
     "reported": "Published"
+  },
+  "footer": {
+    "countries": "Countries",
+    "chokepoints": "Chokepoints",
+    "crises": "Crises",
+    "tools": "Tools",
+    "accuracy": "Accuracy",
+    "pricing": "Pricing",
+    "blog": "Blog",
+    "docs": "Docs",
+    "status": "Status",
+    "github": "GitHub",
+    "x": "X"
   }
 }

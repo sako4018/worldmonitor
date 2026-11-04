@@ -1,4 +1,5 @@
 import { clearTelegramIntelCache } from '@/services/telegram-intel';
+import { HIDE_PREMIUM } from '@/config/fork';
 import { subscribeRuntimeConfig } from '@/services/runtime-config';
 import type { AppContext, AppModule } from '@/app/app-context';
 import type { LoadAllDataTrigger } from '@/app/viewport-hydration-ledger';
@@ -235,11 +236,11 @@ const LATE_REGISTERED_PANEL_KEYS = new Set(['live-news']);
 const CW_PRO_GATE_TAB_RECOVERY_KEY = 'worldmonitor-cw-pro-gate-tab-recovery-v1';
 
 const DASHBOARD_REFERENCE_LINKS = [
-  { label: 'Countries', path: '/countries/' },
-  { label: 'Chokepoints', path: '/chokepoints/' },
-  { label: 'Crises', path: '/crises/' },
-  { label: 'Tools', path: '/tools/' },
-  { label: 'Accuracy', path: '/accuracy/' },
+  { labelKey: 'footer.countries', path: '/countries/' },
+  { labelKey: 'footer.chokepoints', path: '/chokepoints/' },
+  { labelKey: 'footer.crises', path: '/crises/' },
+  { labelKey: 'footer.tools', path: '/tools/' },
+  { labelKey: 'footer.accuracy', path: '/accuracy/' },
 ] as const;
 
 export const VARIANT_SWITCHER_DASHBOARD_URLS = {
@@ -1001,9 +1002,15 @@ export class PanelLayoutManager implements AppModule {
 
       if (reason === PanelGateReason.NONE) {
         // Bind before unlock so a snapshot taken under another user is refused.
+        if (HIDE_PREMIUM) gatedPanel.getElement().style.display = '';
         gatedPanel.bindContentPrincipal(principal);
         gatedPanel.unlockPanel();
         if (isPremium) this.premiumPanelsUnlocked.add(key);
+      } else if (HIDE_PREMIUM) {
+        // Fork: locked panels are removed from the layout instead of showing a CTA.
+        gatedPanel.getElement().style.display = 'none';
+        gatedPanel.bindContentPrincipal(principal);
+        this.premiumPanelsUnlocked.delete(key);
       } else {
         // Snapshot while the previous principal is still bound, then record
         // the user who is now locked out.
@@ -1070,9 +1077,9 @@ export class PanelLayoutManager implements AppModule {
     const referenceOrigin = this.ctx.isDesktopApp || window.location.hostname.endsWith('.worldmonitor.app')
       ? 'https://www.worldmonitor.app'
       : '';
-    const referenceLinksHtml = DASHBOARD_REFERENCE_LINKS.map(({ label, path }) => {
+    const referenceLinksHtml = DASHBOARD_REFERENCE_LINKS.map(({ labelKey, path }) => {
       const href = `${referenceOrigin}${path}`;
-      return `<a href="${href}" target="_blank" rel="noopener">${label}</a>`;
+      return `<a href="${href}" target="_blank" rel="noopener">${t(labelKey)}</a>`;
     }).join('');
 
     markLcpDebug('wm:layout:render-start');
@@ -1245,10 +1252,10 @@ export class PanelLayoutManager implements AppModule {
         <div class="mobile-menu-divider"></div>
         <div class="mobile-menu-footer-links">
           ${referenceLinksHtml}
-          <a href="${referenceOrigin}/pro#pricing" target="_blank" rel="noopener">Pricing</a>
-          <a href="https://www.worldmonitor.app/blog/" target="_blank" rel="noopener">Blog</a>
-          <a href="https://www.worldmonitor.app/docs/documentation" target="_blank" rel="noopener">Docs</a>
-          <a href="https://status.worldmonitor.app/" target="_blank" rel="noopener">Status</a>
+          <a href="${referenceOrigin}/pro#pricing" target="_blank" rel="noopener">${t('footer.pricing')}</a>
+          <a href="https://www.worldmonitor.app/blog/" target="_blank" rel="noopener">${t('footer.blog')}</a>
+          <a href="https://www.worldmonitor.app/docs/documentation" target="_blank" rel="noopener">${t('footer.docs')}</a>
+          <a href="https://status.worldmonitor.app/" target="_blank" rel="noopener">${t('footer.status')}</a>
         </div>
         <div class="mobile-menu-version">v${__APP_VERSION__}</div>
       </nav>
@@ -1333,12 +1340,12 @@ export class PanelLayoutManager implements AppModule {
         </div>
         <nav aria-label="World Monitor references">
           ${referenceLinksHtml}
-          <a href="${referenceOrigin}/pro#pricing" target="_blank" rel="noopener">Pricing</a>
-          <a href="https://www.worldmonitor.app/blog/" target="_blank" rel="noopener">Blog</a>
-          <a href="https://www.worldmonitor.app/docs/documentation" target="_blank" rel="noopener">Docs</a>
-          <a href="https://status.worldmonitor.app/" target="_blank" rel="noopener">Status</a>
-          <a href="https://github.com/koala73/worldmonitor" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://x.com/worldmonitorai" target="_blank" rel="noopener">X</a>
+          <a href="${referenceOrigin}/pro#pricing" target="_blank" rel="noopener">${t('footer.pricing')}</a>
+          <a href="https://www.worldmonitor.app/blog/" target="_blank" rel="noopener">${t('footer.blog')}</a>
+          <a href="https://www.worldmonitor.app/docs/documentation" target="_blank" rel="noopener">${t('footer.docs')}</a>
+          <a href="https://status.worldmonitor.app/" target="_blank" rel="noopener">${t('footer.status')}</a>
+          <a href="https://github.com/koala73/worldmonitor" target="_blank" rel="noopener">${t('footer.github')}</a>
+          <a href="https://x.com/worldmonitorai" target="_blank" rel="noopener">${t('footer.x')}</a>
           ${this.ctx.isDesktopApp ? '' : `<span id="footerDownloadMount"></span>`}
         </nav>
         <span class="site-footer-copy">&copy; ${new Date().getFullYear()} World Monitor</span>
@@ -2478,6 +2485,7 @@ export class PanelLayoutManager implements AppModule {
    * content re-renders never touch it.
    */
   private syncMissionPreview(key: string, panel: Panel, activeMissionId?: string | null): void {
+    if (HIDE_PREMIUM) return;
     const missionId = activeMissionId !== undefined ? activeMissionId : (loadStoredMissionPreset()?.id ?? null);
     syncPanelPreview(
       this.missionPreviews,

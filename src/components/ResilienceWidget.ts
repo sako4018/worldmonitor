@@ -1,4 +1,5 @@
 import { type AuthSession, getAuthState, subscribeAuthState } from '@/services/auth-state';
+import { HIDE_PREMIUM } from '@/config/fork';
 import {
   getEntitlementVerificationStatus,
   onEntitlementChange,
@@ -299,6 +300,7 @@ export class ResilienceWidget {
   }
 
   private renderLocked(gateReason: PanelGateReason): HTMLElement {
+    if (HIDE_PREMIUM) return h('div');
     const description = gateReason === PanelGateReason.ANONYMOUS
       ? 'Sign in to unlock premium resilience scores.'
       : 'Upgrade to Pro to unlock resilience scores.';

@@ -1,4 +1,5 @@
 import { trackGateHit } from '@/services/analytics';
+import { HIDE_PREMIUM } from '@/config/fork';
 import { onEntitlementChange, getEntitlementState, isEntitlementActive } from '@/services/entitlements';
 import { getSubscription, onSubscriptionChange } from '@/services/billing';
 import { deriveBillingUxState, getReactivationHref } from '@/services/billing-state';
@@ -213,6 +214,11 @@ export function showProBanner(container: HTMLElement): void {
   // regardless of premium state, so caching here covers both "initially
   // free" and "initially premium then downgrade" trajectories.
   bannerContainer = container;
+  if (HIDE_PREMIUM) {
+    // Fork: also drop the space the pre-hydration script reserves for the banner.
+    document.documentElement.classList.remove('wm-pro-banner-reserved');
+    return;
+  }
 
   if (bannerEl && !bannerEl.isConnected) {
     bannerEl = null;
