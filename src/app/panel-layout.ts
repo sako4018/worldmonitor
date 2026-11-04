@@ -1,5 +1,5 @@
 import { clearTelegramIntelCache } from '@/services/telegram-intel';
-import { HIDE_PREMIUM } from '@/config/fork';
+import { HIDE_PREMIUM, DEFAULT_DESKTOP_VIEW } from '@/config/fork';
 import { subscribeRuntimeConfig } from '@/services/runtime-config';
 import type { AppContext, AppModule } from '@/app/app-context';
 import type { LoadAllDataTrigger } from '@/app/viewport-hydration-ledger';
@@ -3530,7 +3530,7 @@ export class PanelLayoutManager implements AppModule {
     this.ctx.map = new MapContainer(mapContainer, {
       zoom: this.ctx.isMobile ? 2.5 : 1.0,
       pan: { x: 0, y: 0 },
-      view: this.ctx.isMobile ? this.ctx.resolvedLocation : 'global',
+      view: this.ctx.isMobile ? this.ctx.resolvedLocation : DEFAULT_DESKTOP_VIEW,
       layers: this.ctx.mapLayers,
       timeRange: '7d',
     }, preferGlobe, {
