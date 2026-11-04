@@ -22,6 +22,8 @@ The upstream `AGENTS.md` above is the main engineering guide (architecture bound
 - New feeds need: an entry in `shared/news-catalog.json`, the host in `shared/rss-allowed-domains.json` **and** `api/_rss-allowed-domains.js`, a country in `HOST_ORIGINS` (`scripts/source-origin.mjs`) when the TLD does not give one (`.am`, `.com`), then `node scripts/source-attribution.mjs --write` and `npm run generate`.
 - `npm run generate` / `npm run sync:locales` also rewrite marketing counts (index.html, docs, blog, product facts) and the other 27 locales. Revert those and keep only runtime files, `bg.json` and `en.json`, to keep upstream merges small.
 - Adding names to `DEFAULT_ENABLED_SOURCES` in `src/config/feeds.ts` breaks `tests/feed-catalog-drift.test.mts` (free-cap rules); keep extra feeds opt-in.
+- Look: `src/styles/fork-theme.css` (imported at the top of `main.css`) overrides theme tokens with `html:root` / `html[data-theme]` specificity, removes forced uppercase with one `!important` rule, and puts Helvetica Neue first (SF Pro turns Cyrillic into Bulgarian letter shapes under `lang="bg"`; the owner wants standard shapes). System font is the default in `src/services/font-settings.ts`.
+- Screenshots: the owner works on the Mac at the same time, so prefer headless Chrome (`--headless=new --screenshot`) over full-screen captures; it does not draw the WebGL map.
 - The `.husky` hooks are not active here (`core.hooksPath` unset).
 
 ## Running locally (macOS, Node 24 from `.nvmrc`)
