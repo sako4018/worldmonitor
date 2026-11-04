@@ -1,0 +1,54 @@
+# Fork (sako4018): publish the dashboard as a static site on GitHub Pages.
+#
+# Pages has no server, so the build is made with VITE_STATIC_SITE=1: RSS feeds are read from copies
+# fetched here (scripts/fork-fetch-static-rss.mjs) instead of /api/rss-proxy. The copies are refreshed
+# every hour by the schedule below. Anything that needs a server API (earthquake/fire layers, risk
+# scores, the news digest) stays empty on this site.
+name: Fork Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: '7 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: fork-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - name: Build static site under /worldmonitor/
+        env:
+          VITE_STATIC_SITE: '1'
+          VITE_COUNTRY_OVERRIDES_URL: /worldmonitor/data/country-boundary-overrides-world.geojson
+          NODE_OPTIONS: --max-old-space-size=6144
+        run: npx vite build --base=/worldmonitor/ --outDir dist
+      - name: Fetch RSS feeds into dist/rss
+        run: node --import tsx scripts/fork-fetch-static-rss.mjs --out dist/rss
+      - name: Make the dashboard the home page
+        run: |
+          cp dist/dashboard.html dist/index.html
+          touch dist/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v4
