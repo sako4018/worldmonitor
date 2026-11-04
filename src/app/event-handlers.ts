@@ -1027,7 +1027,7 @@ export class EventHandlerManager implements AppModule {
     if (!mount) return;
 
     const active = loadStoredMissionPreset();
-    const label = active?.shortLabel ?? 'Mission';
+    const label = active?.shortLabel ?? t('missions.title', { defaultValue: 'Mission' });
     const icon = active?.icon ?? '◎';
     const activeClass = active ? ' mission-preset-button--active' : '';
     const suggestedClass = !active && !isMissionPresetPromptDismissed() ? ' mission-preset-button--suggested' : '';
@@ -1039,7 +1039,7 @@ export class EventHandlerManager implements AppModule {
         type="button"
         aria-haspopup="dialog"
         aria-expanded="false"
-        title="${escapeHtml(active ? `Mission: ${active.label}` : 'Choose mission preset')}"
+        title="${escapeHtml(active ? t('missions.withName', { name: active.label, defaultValue: 'Mission: {{name}}' }) : t('missions.choosePreset', { defaultValue: 'Choose mission preset' }))}"
       >
         <span class="mission-preset-button__icon">${escapeHtml(icon)}</span>
         <span class="mission-preset-button__label">${escapeHtml(label)}</span>
@@ -1056,7 +1056,7 @@ export class EventHandlerManager implements AppModule {
   private updateMobileMissionLabel(active: MissionPreset | null = loadStoredMissionPreset()): void {
     const item = document.getElementById('mobileMenuMission');
     const label = item?.querySelector('.mobile-menu-item-label');
-    if (label) label.textContent = active ? `Mission: ${active.shortLabel}` : 'Mission';
+    if (label) label.textContent = active ? t('missions.withName', { name: active.shortLabel, defaultValue: 'Mission: {{name}}' }) : t('missions.title', { defaultValue: 'Mission' });
   }
 
   private toggleMissionPresetPopover(anchor: HTMLElement | null, mobile: boolean): void {
@@ -1085,7 +1085,7 @@ export class EventHandlerManager implements AppModule {
     const popover = document.createElement('div');
     popover.className = `mission-preset-popover${mobile ? ' mission-preset-popover--mobile' : ''}`;
     popover.setAttribute('role', 'dialog');
-    popover.setAttribute('aria-label', 'Mission presets');
+    popover.setAttribute('aria-label', t('missions.presets', { defaultValue: 'Mission presets' }));
     // Auto-opens after first paint for every preset-less user, and holds no
     // entered state — it re-appears on the next load. Without this, the
     // automatic reload guards treated it as work worth protecting and
@@ -1117,12 +1117,12 @@ export class EventHandlerManager implements AppModule {
     setTrustedHtml(popover, trustedHtml(`
       <div class="mission-preset-popover__header">
         <div>
-          <span>Mission</span>
-          <strong>${escapeHtml(active?.label ?? 'Choose Workspace')}</strong>
+          <span>${escapeHtml(t('missions.title', { defaultValue: 'Mission' }))}</span>
+          <strong>${escapeHtml(active?.label ?? t('missions.choose', { defaultValue: 'Choose Workspace' }))}</strong>
         </div>
         <div class="mission-preset-popover__actions">
-          <button type="button" class="mission-preset-reset" data-mission-reset>Reset</button>
-          <button type="button" class="mission-preset-close" data-mission-close aria-label="Close mission presets">×</button>
+          <button type="button" class="mission-preset-reset" data-mission-reset>${escapeHtml(t('missions.reset', { defaultValue: 'Reset' }))}</button>
+          <button type="button" class="mission-preset-close" data-mission-close aria-label="${escapeHtml(t('missions.close', { defaultValue: 'Close mission presets' }))}">×</button>
         </div>
       </div>
       <div class="mission-preset-popover__list">${cards}</div>

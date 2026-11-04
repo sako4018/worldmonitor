@@ -6,6 +6,7 @@ import {
   VARIANT_DEFAULTS,
   getEffectivePanelConfig,
 } from '@/config/panels';
+import { t } from '@/services/i18n';
 import { SITE_VARIANT } from '@/config/variant';
 import { isLayerExecutable, sanitizeLayersForVariant } from '@/config/map-layer-definitions';
 import type { RendererKind, MapVariant } from '@/config/map-layer-definitions';
@@ -55,9 +56,9 @@ export interface ResetMissionPresetState {
 export const MISSION_PRESETS: readonly MissionPreset[] = [
   {
     id: 'crisis-desk',
-    label: 'Crisis Desk',
-    shortLabel: 'Crisis',
-    description: 'Conflict, posture, instability, and live intelligence.',
+    get label() { return t('missions.crisis-desk.label', { defaultValue: 'Crisis Desk' }); },
+    get shortLabel() { return t('missions.crisis-desk.shortLabel', { defaultValue: 'Crisis' }); },
+    get description() { return t('missions.crisis-desk.description', { defaultValue: 'Conflict, posture, instability, and live intelligence.' }); },
     icon: '!',
     view: 'mena',
     zoom: 3.6,
@@ -94,9 +95,9 @@ export const MISSION_PRESETS: readonly MissionPreset[] = [
   },
   {
     id: 'supply-chain-risk',
-    label: 'Supply-Chain Risk',
-    shortLabel: 'Supply',
-    description: 'Routes, chokepoints, country risk, and commodities.',
+    get label() { return t('missions.supply-chain-risk.label', { defaultValue: 'Supply-Chain Risk' }); },
+    get shortLabel() { return t('missions.supply-chain-risk.shortLabel', { defaultValue: 'Supply' }); },
+    get description() { return t('missions.supply-chain-risk.description', { defaultValue: 'Routes, chokepoints, country risk, and commodities.' }); },
     icon: 'S',
     view: 'global',
     zoom: 2.3,
@@ -132,9 +133,9 @@ export const MISSION_PRESETS: readonly MissionPreset[] = [
   },
   {
     id: 'energy-security',
-    label: 'Energy Security',
-    shortLabel: 'Energy',
-    description: 'Pipelines, storage, tankers, outages, and disruption logs.',
+    get label() { return t('missions.energy-security.label', { defaultValue: 'Energy Security' }); },
+    get shortLabel() { return t('missions.energy-security.shortLabel', { defaultValue: 'Energy' }); },
+    get description() { return t('missions.energy-security.description', { defaultValue: 'Pipelines, storage, tankers, outages, and disruption logs.' }); },
     icon: 'E',
     view: 'mena',
     zoom: 3.2,
@@ -172,9 +173,9 @@ export const MISSION_PRESETS: readonly MissionPreset[] = [
   },
   {
     id: 'osint-newsroom',
-    label: 'News Seeker',
-    shortLabel: 'News',
-    description: 'Breaking news, source context, webcams, advisories, and social signal.',
+    get label() { return t('missions.osint-newsroom.label', { defaultValue: 'News Seeker' }); },
+    get shortLabel() { return t('missions.osint-newsroom.shortLabel', { defaultValue: 'News' }); },
+    get description() { return t('missions.osint-newsroom.description', { defaultValue: 'Breaking news, source context, webcams, advisories, and social signal.' }); },
     icon: 'N',
     view: 'global',
     zoom: 2.1,
@@ -211,9 +212,9 @@ export const MISSION_PRESETS: readonly MissionPreset[] = [
   },
   {
     id: 'macro-market-watch',
-    label: 'Stock Geek',
-    shortLabel: 'Stocks',
-    description: 'Stocks, market breadth, earnings, macro signals, and event context.',
+    get label() { return t('missions.macro-market-watch.label', { defaultValue: 'Stock Geek' }); },
+    get shortLabel() { return t('missions.macro-market-watch.shortLabel', { defaultValue: 'Stocks' }); },
+    get description() { return t('missions.macro-market-watch.description', { defaultValue: 'Stocks, market breadth, earnings, macro signals, and event context.' }); },
     icon: '$',
     view: 'america',
     zoom: 3,
@@ -257,9 +258,9 @@ export const MISSION_PRESETS: readonly MissionPreset[] = [
   },
   {
     id: 'tech-ai-watch',
-    label: 'Tech / AI Watcher',
-    shortLabel: 'Tech',
-    description: 'AI labs, startups, chips, cloud, cyber, and regulation signals.',
+    get label() { return t('missions.tech-ai-watch.label', { defaultValue: 'Tech / AI Watcher' }); },
+    get shortLabel() { return t('missions.tech-ai-watch.shortLabel', { defaultValue: 'Tech' }); },
+    get description() { return t('missions.tech-ai-watch.description', { defaultValue: 'AI labs, startups, chips, cloud, cyber, and regulation signals.' }); },
     icon: 'T',
     view: 'global',
     zoom: 2.4,
@@ -300,9 +301,9 @@ export const MISSION_PRESETS: readonly MissionPreset[] = [
   },
   {
     id: 'good-news-explorer',
-    label: 'Good News Explorer',
-    shortLabel: 'Good',
-    description: 'Progress, breakthroughs, conservation wins, and clean-energy momentum.',
+    get label() { return t('missions.good-news-explorer.label', { defaultValue: 'Good News Explorer' }); },
+    get shortLabel() { return t('missions.good-news-explorer.shortLabel', { defaultValue: 'Good' }); },
+    get description() { return t('missions.good-news-explorer.description', { defaultValue: 'Progress, breakthroughs, conservation wins, and clean-energy momentum.' }); },
     icon: '+',
     view: 'global',
     zoom: 2.2,
@@ -328,9 +329,9 @@ export const MISSION_PRESETS: readonly MissionPreset[] = [
   },
   {
     id: 'nq-day-trader',
-    label: 'NQ Day Trader',
-    shortLabel: 'NQ',
-    description: 'E-mini Nasdaq-100 context, catalysts, and curated NQ news.',
+    get label() { return t('missions.nq-day-trader.label', { defaultValue: 'NQ Day Trader' }); },
+    get shortLabel() { return t('missions.nq-day-trader.shortLabel', { defaultValue: 'NQ' }); },
+    get description() { return t('missions.nq-day-trader.description', { defaultValue: 'E-mini Nasdaq-100 context, catalysts, and curated NQ news.' }); },
     icon: 'N',
     view: 'america',
     zoom: 3.4,
@@ -359,9 +360,9 @@ export const MISSION_PRESETS: readonly MissionPreset[] = [
   },
   {
     id: 'country-watcher',
-    label: 'Country Watcher',
-    shortLabel: 'Watch',
-    description: 'Track the countries you care about — instability, sanctions, displacement, and risk in one view.',
+    get label() { return t('missions.country-watcher.label', { defaultValue: 'Country Watcher' }); },
+    get shortLabel() { return t('missions.country-watcher.shortLabel', { defaultValue: 'Watch' }); },
+    get description() { return t('missions.country-watcher.description', { defaultValue: 'Track the countries you care about — instability, sanctions, displacement, and risk in one view.' }); },
     icon: '◉',
     view: 'global',
     zoom: 2.2,

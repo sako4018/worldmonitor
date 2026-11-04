@@ -4734,5 +4734,59 @@
     "status": "Status",
     "github": "GitHub",
     "x": "X"
+  },
+  "missions": {
+    "title": "Mission",
+    "choose": "Choose Workspace",
+    "reset": "Reset",
+    "presets": "Mission presets",
+    "choosePreset": "Choose mission preset",
+    "close": "Close mission presets",
+    "withName": "Mission: {{name}}",
+    "crisis-desk": {
+      "label": "Crisis Desk",
+      "shortLabel": "Crisis",
+      "description": "Conflict, posture, instability, and live intelligence."
+    },
+    "supply-chain-risk": {
+      "label": "Supply-Chain Risk",
+      "shortLabel": "Supply",
+      "description": "Routes, chokepoints, country risk, and commodities."
+    },
+    "energy-security": {
+      "label": "Energy Security",
+      "shortLabel": "Energy",
+      "description": "Pipelines, storage, tankers, outages, and disruption logs."
+    },
+    "osint-newsroom": {
+      "label": "News Seeker",
+      "shortLabel": "News",
+      "description": "Breaking news, source context, webcams, advisories, and social signal."
+    },
+    "macro-market-watch": {
+      "label": "Stock Geek",
+      "shortLabel": "Stocks",
+      "description": "Stocks, market breadth, earnings, macro signals, and event context."
+    },
+    "tech-ai-watch": {
+      "label": "Tech / AI Watcher",
+      "shortLabel": "Tech",
+      "description": "AI labs, startups, chips, cloud, cyber, and regulation signals."
+    },
+    "good-news-explorer": {
+      "label": "Good News Explorer",
+      "shortLabel": "Good",
+      "description": "Progress, breakthroughs, conservation wins, and clean-energy momentum."
+    },
+    "nq-day-trader": {
+      "label": "NQ Day Trader",
+      "shortLabel": "NQ",
+      "description": "E-mini Nasdaq-100 context, catalysts, and curated NQ news."
+    },
+    "country-watcher": {
+      "label": "Country Watcher",
+      "shortLabel": "Watch",
+      "description": "Track the countries you care about — instability, sanctions, displacement, and risk in one view."
+    }
   }
 }
