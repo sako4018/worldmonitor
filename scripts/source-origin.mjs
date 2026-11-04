@@ -67,6 +67,10 @@ const INTERNATIONAL_HOST_SUFFIXES = [
 // Host → ISO 3166-1 alpha-2, 'EU', or null (international).
 // Only hosts that cannot be inferred from a real ccTLD or government suffix.
 const HOST_ORIGINS = Object.freeze({
+  'asbarez.com': 'US', // fork (sako4018): Armenian-American daily, Los Angeles
+  'hetq.am': 'AM', // fork (sako4018)
+  'news.am': 'AM', // fork (sako4018)
+  'www.segabg.com': 'BG', // fork (sako4018)
   'simaniger.net': 'NE',
   'data.1212.mn': 'MN',
   'www.ocpv-ci.com': 'CI',

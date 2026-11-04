@@ -766,6 +766,72 @@ export const BROWSER_NEWS_CATALOG: BrowserCatalog = {
         {
           "name": "BBC Northern Ireland",
           "url": "https://feeds.bbci.co.uk/news/northern_ireland/rss.xml"
+        },
+        {
+          "name": "BTA",
+          "url": "https://www.bta.bg/bg/rss/free",
+          "lang": "bg",
+          "digestLang": "bg"
+        },
+        {
+          "name": "Mediapool",
+          "url": "https://www.mediapool.bg/feed/",
+          "lang": "bg",
+          "digestLang": "bg"
+        },
+        {
+          "name": "Capital",
+          "url": "https://www.capital.bg/rss/",
+          "lang": "bg",
+          "digestLang": "bg"
+        },
+        {
+          "name": "Club Z",
+          "url": "https://clubz.bg/rss",
+          "lang": "bg",
+          "digestLang": "bg"
+        },
+        {
+          "name": "Sega",
+          "url": "https://www.segabg.com/rss",
+          "lang": "bg",
+          "digestLang": "bg"
+        },
+        {
+          "name": "Nova",
+          "url": "https://nova.bg/rss/latest",
+          "lang": "bg",
+          "digestLang": "bg"
+        },
+        {
+          "name": "24 Chasa",
+          "url": "https://www.24chasa.bg/rss",
+          "lang": "bg",
+          "digestLang": "bg"
+        },
+        {
+          "name": "Darik",
+          "url": "https://www.dariknews.bg/rss.php",
+          "lang": "bg",
+          "digestLang": "bg"
+        },
+        {
+          "name": "News.am",
+          "url": "https://news.am/eng/rss/",
+          "lang": "en",
+          "digestLang": "en"
+        },
+        {
+          "name": "Asbarez",
+          "url": "https://asbarez.com/feed/",
+          "lang": "en",
+          "digestLang": "en"
+        },
+        {
+          "name": "Hetq",
+          "url": "https://hetq.am/en/rss",
+          "lang": "en",
+          "digestLang": "en"
         }
       ],
       "middleeast": [

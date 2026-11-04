@@ -1793,6 +1793,20 @@
       ]
     },
     {
+      "host": "asbarez.com",
+      "provider": "asbarez.com",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit asbarez.com and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
       "host": "asharq.com",
       "provider": "asharq.com",
       "kind": "feed",
@@ -2535,6 +2549,20 @@
         },
         {
           "path": "server/worldmonitor/shipping/v2/webhook-shared.ts"
+        }
+      ]
+    },
+    {
+      "host": "clubz.bg",
+      "provider": "clubz.bg",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit clubz.bg and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
         }
       ]
     },
@@ -5251,6 +5279,20 @@
       ]
     },
     {
+      "host": "hetq.am",
+      "provider": "hetq.am",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit hetq.am and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
       "host": "hiiraan.com",
       "provider": "hiiraan.com",
       "kind": "feed",
@@ -6852,6 +6894,20 @@
       ]
     },
     {
+      "host": "news.am",
+      "provider": "news.am",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit news.am and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
       "host": "news.cgtn.com",
       "provider": "news.cgtn.com",
       "kind": "feed",
@@ -7119,6 +7175,20 @@
       "observed": true,
       "license": "Provider terms for this feed publisher; verify before redistribution",
       "attribution": "Credit northernminer.com and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
+      "host": "nova.bg",
+      "provider": "nova.bg",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit nova.bg and link to the original feed publisher.",
       "status": "terms-review",
       "references": [
         {
@@ -8224,6 +8294,9 @@
         },
         {
           "path": "scripts/fetch-country-boundary-overrides.mjs"
+        },
+        {
+          "path": "scripts/fetch-world-boundary-overrides.mjs"
         },
         {
           "path": "scripts/generate-airline-codes.mjs"
@@ -11094,6 +11167,20 @@
       ]
     },
     {
+      "host": "www.24chasa.bg",
+      "provider": "www.24chasa.bg",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit www.24chasa.bg and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
       "host": "www.972mag.com",
       "provider": "+972 Magazine",
       "kind": "feed",
@@ -11609,6 +11696,20 @@
       ]
     },
     {
+      "host": "www.bta.bg",
+      "provider": "www.bta.bg",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit www.bta.bg and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
       "host": "www.businessinsider.com",
       "provider": "Business Insider",
       "kind": "feed",
@@ -11633,6 +11734,20 @@
       "references": [
         {
           "path": "scripts/china-policy/adapters.mjs"
+        }
+      ]
+    },
+    {
+      "host": "www.capital.bg",
+      "provider": "www.capital.bg",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit www.capital.bg and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
         }
       ]
     },
@@ -12059,6 +12174,20 @@
       "observed": true,
       "license": "Provider terms for this feed publisher; verify before redistribution",
       "attribution": "Credit www.dailysabah.com and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
+      "host": "www.dariknews.bg",
+      "provider": "www.dariknews.bg",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit www.dariknews.bg and link to the original feed publisher.",
       "status": "terms-review",
       "references": [
         {
@@ -13287,6 +13416,20 @@
       "status": "excluded"
     },
     {
+      "host": "www.mediapool.bg",
+      "provider": "www.mediapool.bg",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit www.mediapool.bg and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
       "host": "www.migracion.gob.pa",
       "provider": "www.migracion.gob.pa",
       "kind": "structured",
@@ -14196,6 +14339,20 @@
         {
           "path": "scripts/seed-sec-cik-map.mjs"
         },
+        {
+          "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
+      "host": "www.segabg.com",
+      "provider": "www.segabg.com",
+      "kind": "feed",
+      "observed": true,
+      "license": "Provider terms for this feed publisher; verify before redistribution",
+      "attribution": "Credit www.segabg.com and link to the original feed publisher.",
+      "status": "terms-review",
+      "references": [
         {
           "path": "shared/news-catalog.json"
         }

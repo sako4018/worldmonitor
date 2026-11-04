@@ -145,6 +145,7 @@ export const NEWS_POOL_LAYOUT: NewsPoolLayout = {
       "edition": "full",
       "lang": "bg",
       "contentLanguages": [
+        "en",
         "bg"
       ]
     },

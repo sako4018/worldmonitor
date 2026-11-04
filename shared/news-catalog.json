@@ -9769,6 +9769,182 @@
           "serverOrder": 31
         }
       ]
+    },
+    {
+      "name": "BTA",
+      "url": "https://www.bta.bg/bg/rss/free",
+      "lang": "bg",
+      "notes": [
+        "Fork (sako4018): Bulgarian source, locale-boosted for bg."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 102,
+          "browserOrder": 102
+        }
+      ]
+    },
+    {
+      "name": "Mediapool",
+      "url": "https://www.mediapool.bg/feed/",
+      "lang": "bg",
+      "notes": [
+        "Fork (sako4018): Bulgarian source, locale-boosted for bg."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 103,
+          "browserOrder": 103
+        }
+      ]
+    },
+    {
+      "name": "Capital",
+      "url": "https://www.capital.bg/rss/",
+      "lang": "bg",
+      "notes": [
+        "Fork (sako4018): Bulgarian source, locale-boosted for bg."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 104,
+          "browserOrder": 104
+        }
+      ]
+    },
+    {
+      "name": "Club Z",
+      "url": "https://clubz.bg/rss",
+      "lang": "bg",
+      "notes": [
+        "Fork (sako4018): Bulgarian source, locale-boosted for bg."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 105,
+          "browserOrder": 105
+        }
+      ]
+    },
+    {
+      "name": "Sega",
+      "url": "https://www.segabg.com/rss",
+      "lang": "bg",
+      "notes": [
+        "Fork (sako4018): Bulgarian source, locale-boosted for bg."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 106,
+          "browserOrder": 106
+        }
+      ]
+    },
+    {
+      "name": "Nova",
+      "url": "https://nova.bg/rss/latest",
+      "lang": "bg",
+      "notes": [
+        "Fork (sako4018): Bulgarian source, locale-boosted for bg."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 107,
+          "browserOrder": 107
+        }
+      ]
+    },
+    {
+      "name": "24 Chasa",
+      "url": "https://www.24chasa.bg/rss",
+      "lang": "bg",
+      "notes": [
+        "Fork (sako4018): Bulgarian source, locale-boosted for bg."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 108,
+          "browserOrder": 108
+        }
+      ]
+    },
+    {
+      "name": "Darik",
+      "url": "https://www.dariknews.bg/rss.php",
+      "lang": "bg",
+      "notes": [
+        "Fork (sako4018): Bulgarian source, locale-boosted for bg."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 109,
+          "browserOrder": 109
+        }
+      ]
+    },
+    {
+      "name": "News.am",
+      "url": "https://news.am/eng/rss/",
+      "lang": "en",
+      "notes": [
+        "Fork (sako4018): Armenia source, default-on."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 110,
+          "browserOrder": 110
+        }
+      ]
+    },
+    {
+      "name": "Asbarez",
+      "url": "https://asbarez.com/feed/",
+      "lang": "en",
+      "notes": [
+        "Fork (sako4018): Armenia source, default-on."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 111,
+          "browserOrder": 111
+        }
+      ]
+    },
+    {
+      "name": "Hetq",
+      "url": "https://hetq.am/en/rss",
+      "lang": "en",
+      "notes": [
+        "Fork (sako4018): Armenia source, default-on."
+      ],
+      "placements": [
+        {
+          "edition": "full",
+          "category": "europe",
+          "serverOrder": 112,
+          "browserOrder": 112
+        }
+      ]
     }
   ]
 }
