@@ -16,11 +16,13 @@ const hasTilesUrl = !!R2_BASE;
 export type PMTilesTheme = 'black' | 'dark' | 'grayscale' | 'light' | 'white';
 export type OpenFreeMapTheme = 'dark' | 'positron';
 export type CartoTheme = 'dark-matter' | 'voyager' | 'positron';
+// Fork (sako4018): raster imagery themes (Esri World Imagery / World Topo).
+export type ImageryTheme = 'satellite' | 'terrain';
 
 export const FALLBACK_DARK_STYLE = 'https://tiles.openfreemap.org/styles/dark';
 export const FALLBACK_LIGHT_STYLE = 'https://tiles.openfreemap.org/styles/positron';
 
-export type MapProvider = 'auto' | 'pmtiles' | 'openfreemap' | 'carto';
+export type MapProvider = 'auto' | 'pmtiles' | 'openfreemap' | 'carto' | 'imagery';
 
 const STORAGE_KEY = 'wm-map-provider';
 const THEME_STORAGE_PREFIX = 'wm-map-theme:';
@@ -51,6 +53,7 @@ export const MAP_PROVIDER_OPTIONS: { value: MapProvider; label: string }[] = (()
   }
   opts.push({ value: 'openfreemap', label: 'OpenFreeMap' });
   opts.push({ value: 'carto', label: 'CARTO' });
+  opts.push({ value: 'imagery', label: 'Сателит и релеф' });
   return opts;
 })();
 
@@ -74,6 +77,10 @@ export const MAP_THEME_OPTIONS: Record<MapProvider, { value: string; label: stri
     { value: 'voyager', label: 'Voyager (light)' },
     { value: 'positron', label: 'Positron (light)' },
   ],
+  imagery: [
+    { value: 'satellite', label: 'Сателит' },
+    { value: 'terrain', label: 'Релеф' },
+  ],
 };
 
 const DEFAULT_THEME: Record<MapProvider, string> = {
@@ -81,6 +88,7 @@ const DEFAULT_THEME: Record<MapProvider, string> = {
   auto: 'black',
   openfreemap: 'dark',
   carto: 'dark-matter',
+  imagery: 'satellite',
 };
 
 export function getMapProvider(): MapProvider {
@@ -112,7 +120,7 @@ export function setMapTheme(provider: MapProvider, theme: string): void {
 }
 
 export function isLightMapTheme(mapTheme: string): boolean {
-  return ['light', 'white', 'positron', 'voyager'].includes(mapTheme);
+  return ['light', 'white', 'positron', 'voyager', 'terrain'].includes(mapTheme);
 }
 
 export function asPMTilesTheme(mapTheme: string): PMTilesTheme {

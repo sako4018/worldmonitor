@@ -67,6 +67,33 @@ const CARTO_STYLES: Record<string, string> = {
   'positron': CARTO_POSITRON,
 };
 
+// Fork (sako4018): raster basemaps, no API key. Esri tiles are free for light use with
+// attribution; place names come from Esri's reference overlay (CARTO's raster labels need a key).
+const IMAGERY_GLYPHS = 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf';
+const ESRI_ATTRIBUTION = 'Tiles © Esri — Source: Esri, Maxar, Earthstar Geographics, USGS, NOAA';
+
+function buildImageryStyle(theme: string): StyleSpecification {
+  const terrain = theme === 'terrain';
+  const base = terrain
+    ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
+    : 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+  const sources: StyleSpecification['sources'] = {
+    base: { type: 'raster', tiles: [base], tileSize: 256, maxzoom: terrain ? 19 : 18, attribution: ESRI_ATTRIBUTION },
+  };
+  const layers: StyleSpecification['layers'] = [{ id: 'base', type: 'raster', source: 'base' }];
+  if (!terrain) {
+    sources.labels = {
+      type: 'raster',
+      tiles: ['https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}'],
+      tileSize: 256,
+      maxzoom: 18,
+      attribution: 'Labels © Esri',
+    };
+    layers.push({ id: 'labels', type: 'raster', source: 'labels' });
+  }
+  return { version: 8, glyphs: IMAGERY_GLYPHS, sources, layers };
+}
+
 async function tryBuildRegisteredPMTilesStyle(flavor: PMTilesTheme): Promise<StyleSpecification | null> {
   try {
     const style = await buildPMTilesStyle(flavor);
@@ -91,6 +118,8 @@ export async function getStyleForProvider(provider: MapProvider, mapTheme: strin
       return mapTheme === 'positron' ? FALLBACK_LIGHT_STYLE : FALLBACK_DARK_STYLE;
     case 'carto':
       return CARTO_STYLES[mapTheme] ?? CARTO_DARK;
+    case 'imagery':
+      return buildImageryStyle(mapTheme);
     default: {
       const pmtiles = await tryBuildRegisteredPMTilesStyle(asPMTilesTheme(mapTheme));
       return pmtiles ?? (lightFallback ? FALLBACK_LIGHT_STYLE : FALLBACK_DARK_STYLE);
