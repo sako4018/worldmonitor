@@ -1,4 +1,5 @@
 import { Panel } from './Panel';
+import { assetUrl } from '@/utils/asset-url';
 import type { FredSeries, BisData } from '@/services/economic';
 import { BLS_METRO_IDS } from '@/services/economic';
 import { t } from '@/services/i18n';
@@ -40,7 +41,7 @@ function notifyIfStressCrossed(score: number): void {
     sessionStorage.setItem(STRESS_NOTIFICATION_KEY, String(level));
     new Notification('Economic Stress Alert', {
       body: `Composite stress index reached ${score.toFixed(1)} (${score >= 85 ? 'Critical' : 'Severe'})`,
-      icon: '/favico/favicon-32x32.png',
+      icon: assetUrl('favico/favicon-32x32.png'),
       tag: 'economic-stress',
     });
   } catch { /* Notification API can throw in some environments */ }

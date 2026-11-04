@@ -1,4 +1,5 @@
 import type { StoryData } from './story-data';
+import { assetUrl } from '@/utils/asset-url';
 import { getLocale, t } from './i18n';
 
 const W = 1080;
@@ -37,7 +38,7 @@ const THREAT_COLORS: Record<string, string> = {
   critical: '#ef4444', high: '#f97316', medium: '#eab308', low: '#22c55e', info: '#3b82f6',
 };
 
-const LOGO_URL = '/favico/worldmonitor-icon-1024.png';
+const LOGO_URL = assetUrl('favico/worldmonitor-icon-1024.png');
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {

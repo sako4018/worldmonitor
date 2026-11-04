@@ -1,4 +1,5 @@
 import type { FeatureCollection, Geometry, GeoJsonProperties, Position } from 'geojson';
+import { assetUrl } from '@/utils/asset-url';
 import { markLcpDebug } from '@/utils/lcp-debug';
 
 interface IndexedCountryGeometry {
@@ -13,7 +14,7 @@ interface CountryHit {
   name: string;
 }
 
-const COUNTRY_GEOJSON_URL = '/data/countries.geojson';
+const COUNTRY_GEOJSON_URL = assetUrl('data/countries.geojson'); // fork: BASE_URL (GitHub Pages sub-path)
 /** The base GeoJSON is the module-level gate for every geometry consumer;
  * a hung fetch parks `loadPromise` forever, so bound it well above a normal
  * static-asset load but well below "stuck for the session". */

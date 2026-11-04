@@ -1,4 +1,5 @@
 import { clearTelegramIntelCache } from '@/services/telegram-intel';
+import { assetUrl } from '@/utils/asset-url';
 import { HIDE_PREMIUM, DEFAULT_DESKTOP_VIEW } from '@/config/fork';
 import { subscribeRuntimeConfig } from '@/services/runtime-config';
 import type { AppContext, AppModule } from '@/app/app-context';
@@ -1334,7 +1335,7 @@ export class PanelLayoutManager implements AppModule {
       </nav>
       <footer class="site-footer">
         <div class="site-footer-brand">
-          <img src="/favico/android-chrome-96x96.png" alt="" width="28" height="28" loading="lazy" decoding="async" class="site-footer-icon" />
+          <img src="${assetUrl('favico/android-chrome-96x96.png')}" alt="" width="28" height="28" loading="lazy" decoding="async" class="site-footer-icon" />
           <div class="site-footer-brand-text">
             <span class="site-footer-name">WORLD MONITOR</span>
             <span class="site-footer-sub">v${__APP_VERSION__} &middot; <a href="https://x.com/eliehabib" target="_blank" rel="noopener" class="site-footer-credit">@eliehabib</a></span>
