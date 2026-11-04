@@ -3651,6 +3651,9 @@
         },
         {
           "path": "scripts/seed-earthquakes.mjs"
+        },
+        {
+          "path": "src/services/earthquakes.ts"
         }
       ]
     },
@@ -4028,6 +4031,9 @@
       "references": [
         {
           "path": "scripts/seed-natural-events.mjs"
+        },
+        {
+          "path": "src/services/eonet.ts"
         }
       ]
     },
@@ -4984,6 +4990,9 @@
         },
         {
           "path": "scripts/build-crawlable-corpus.mjs"
+        },
+        {
+          "path": "scripts/fork-fetch-static-rss.mjs"
         },
         {
           "path": "scripts/generate-airline-codes.mjs"
@@ -8990,6 +8999,20 @@
       ]
     },
     {
+      "host": "server.arcgisonline.com",
+      "provider": "server.arcgisonline.com",
+      "kind": "structured",
+      "observed": true,
+      "license": "Provider terms for this upstream API/dataset; verify before redistribution",
+      "attribution": "Credit server.arcgisonline.com and link to the original upstream API/dataset.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "src/config/basemap-styles.ts"
+        }
+      ]
+    },
+    {
       "host": "services.arcgis.com",
       "provider": "Toronto Police Service",
       "kind": "structured",
@@ -10202,6 +10225,9 @@
       "attribution": "Excluded from the external-provider count: not an ingested upstream dataset.",
       "status": "excluded",
       "references": [
+        {
+          "path": "src/config/basemap-styles.ts"
+        },
         {
           "path": "src/config/basemap.ts"
         }
@@ -14355,6 +14381,20 @@
       "references": [
         {
           "path": "shared/news-catalog.json"
+        }
+      ]
+    },
+    {
+      "host": "www.seismicportal.eu",
+      "provider": "www.seismicportal.eu",
+      "kind": "structured",
+      "observed": true,
+      "license": "Provider terms for this upstream API/dataset; verify before redistribution",
+      "attribution": "Credit www.seismicportal.eu and link to the original upstream API/dataset.",
+      "status": "terms-review",
+      "references": [
+        {
+          "path": "src/services/earthquakes.ts"
         }
       ]
     },
