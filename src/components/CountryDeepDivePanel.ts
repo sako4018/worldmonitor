@@ -4077,6 +4077,7 @@ export class CountryDeepDivePanel implements CountryBriefPanel {
   }
 
   private replaceResilienceSlot(slot: HTMLElement, next: HTMLElement): void {
+    if (HIDE_PREMIUM) next.style.display = 'none'; // fork: the widget is Pro-only, hide the element that replaces the slot too
     if (typeof slot.replaceWith === 'function') {
       slot.replaceWith(next);
       return;
