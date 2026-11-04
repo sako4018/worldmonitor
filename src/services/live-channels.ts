@@ -21,6 +21,7 @@ export interface BuiltinLiveChannel extends LiveChannel {
 
 // Full variant: World news channels (24/7 live streams)
 const FULL_LIVE_CHANNELS: BuiltinLiveChannel[] = [
+  { id: 'bulgaria24', name: 'България 24' },
   { id: 'bloomberg', name: 'Bloomberg', handle: '@markets' },
   { id: 'sky', name: 'SkyNews', handle: '@SkyNews' },
   { id: 'euronews', name: 'Euronews', handle: '@euronews' },

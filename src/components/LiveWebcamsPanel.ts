@@ -37,6 +37,9 @@ const WEBCAM_FEEDS: WebcamFeed[] = [
   { id: 'medina', city: 'Medina', country: 'Saudi Arabia', region: 'middle-east' },
   { id: 'beirut-mtv', city: 'Beirut', country: 'Lebanon', region: 'middle-east' },
   // Europe
+  { id: 'sofia-bg', city: 'София и Витоша', country: 'България', region: 'europe' },
+  { id: 'veliko-tarnovo', city: 'Велико Търново', country: 'България', region: 'europe' },
+  { id: 'tsarevo', city: 'Царево', country: 'България', region: 'europe' },
   { id: 'kyiv', city: 'Ukraine', country: 'Ukraine', region: 'europe' },
   { id: 'paris', city: 'Paris', country: 'France', region: 'europe' },
   { id: 'st-petersburg', city: 'St. Petersburg', country: 'Russia', region: 'europe' },

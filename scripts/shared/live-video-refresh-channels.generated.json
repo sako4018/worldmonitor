@@ -2,6 +2,30 @@
   "generatedFrom": "src/config/live-video-sources.ts",
   "channels": [
     {
+      "channelId": "UCunD6k4qnEcO684VkVRdEAA",
+      "slots": [
+        "webcams/sofia-bg"
+      ]
+    },
+    {
+      "channelId": "UC7r-lwXNqfSPiWTbcPXCxGA",
+      "slots": [
+        "webcams/veliko-tarnovo"
+      ]
+    },
+    {
+      "channelId": "UC1FvgiZwX1SrNVAJH90V5hw",
+      "slots": [
+        "webcams/tsarevo"
+      ]
+    },
+    {
+      "channelId": "UCuVRmceoeYqL6Dc_lNKIrRA",
+      "slots": [
+        "live-news/bulgaria24"
+      ]
+    },
+    {
       "channelId": "UCIALMKvObZNtJ6AmdCLP7Lg",
       "slots": [
         "live-news/bloomberg"

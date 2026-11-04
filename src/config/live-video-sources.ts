@@ -35,6 +35,21 @@
 // run `npm run sync:live-video-channels` (CI fails until the generated list matches this file).
 
 export const WEBCAM_SOURCES = {
+  // Fork (sako4018): Bulgarian cams. All three are community streams, so the video id comes first
+  // and the channel (plays whatever it has live) is the fallback if the stream restarts under a new id.
+  // Checked live and embeddable on 2026-11-04.
+  'sofia-bg': [
+    'https://www.youtube.com/watch?v=NTsuWrIwn74',
+    'https://www.youtube.com/channel/UCunD6k4qnEcO684VkVRdEAA',
+  ],
+  'veliko-tarnovo': [
+    'https://www.youtube.com/watch?v=reOopmnOjIM',
+    'https://www.youtube.com/channel/UC7r-lwXNqfSPiWTbcPXCxGA',
+  ],
+  tsarevo: [
+    'https://www.youtube.com/watch?v=wXNYNGF3JNg',
+    'https://www.youtube.com/channel/UC1FvgiZwX1SrNVAJH90V5hw',
+  ],
   jerusalem: ['https://www.youtube.com/watch?v=zp6LNSoq000'],
   'middle-east': ['https://www.youtube.com/watch?v=AkqGOcpDvZU'],
   'tel-aviv': [],
@@ -79,6 +94,7 @@ export type WebcamSlotId = keyof typeof WEBCAM_SOURCES;
 
 /** The "all regions" wall: the first four slots here that have entries. A filled hotspot slot moves back to the front. */
 export const WEBCAM_GRID_PRIORITY = [
+  'sofia-bg', 'veliko-tarnovo',
   'jerusalem', 'middle-east', 'kyiv', 'washington',
   'taipei', 'tel-aviv', 'beirut-mtv', 'mecca', 'istanbul', 'medina', 'st-petersburg', 'tokyo', 'los-angeles', 'sydney', 'iss-earth',
 ] as const satisfies readonly WebcamSlotId[];
@@ -89,6 +105,12 @@ export const WEBCAM_GRID_PRIORITY = [
  * channel's live embed where YouTube allows it. A channel with [] is hidden from Available channels.
  */
 export const LIVE_NEWS_SOURCES = {
+  // Fork (sako4018): "България 24" 24/7 news channel (checked live and embeddable on 2026-11-04).
+  // BNT, bTV and Nova do not run a free 24/7 YouTube stream, so they are not listed.
+  bulgaria24: [
+    'https://www.youtube.com/watch?v=TsPPWPpl_uM',
+    'https://www.youtube.com/channel/UCuVRmceoeYqL6Dc_lNKIrRA',
+  ],
   bloomberg: [
     'https://bloomberg.com/media-manifest/streams/us.m3u8',
     'https://www.youtube.com/watch?v=QB5BNdBFujE',
