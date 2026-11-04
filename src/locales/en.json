@@ -1459,7 +1459,9 @@
         "asia": "Asia",
         "latam": "Latin America",
         "africa": "Africa",
-        "oceania": "Oceania"
+        "oceania": "Oceania",
+        "bulgaria": "Bulgaria",
+        "caucasus": "Armenia & Caucasus"
       },
       "layers": {
         "startupHubs": "Startup Hubs",

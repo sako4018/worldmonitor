@@ -1169,6 +1169,8 @@ export class PanelLayoutManager implements AppModule {
           <div class="region-selector">
             <select id="regionSelect" class="region-select" aria-label="${t('header.selectRegion')}">
               <option value="global">${t('components.deckgl.views.global')}</option>
+              <option value="fork:bg">${t('components.deckgl.views.bulgaria')}</option>
+              <option value="fork:caucasus">${t('components.deckgl.views.caucasus')}</option>
               <option value="america">${t('components.deckgl.views.americas')}</option>
               <option value="mena">${t('components.deckgl.views.mena')}</option>
               <option value="eu">${t('components.deckgl.views.europe')}</option>

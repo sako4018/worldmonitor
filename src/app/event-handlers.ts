@@ -4,7 +4,7 @@ import type {
   UnifiedSettingsController,
   UnifiedSettingsTabId,
 } from '@/app/app-context';
-import { HIDE_PREMIUM } from '@/config/fork';
+import { HIDE_PREMIUM, FORK_VIEW_PRESETS } from '@/config/fork';
 import { applyVisibleMapDimension } from '@/app/map-dimension-control';
 import type { UnifiedSettingsConfig } from '@/components/UnifiedSettings';
 import type { AirlineIntelPanel } from '@/components/AirlineIntelPanel';
@@ -867,6 +867,12 @@ export class EventHandlerManager implements AppModule {
 
     const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
     regionSelect?.addEventListener('change', () => {
+      const forkPreset = FORK_VIEW_PRESETS[regionSelect.value];
+      if (forkPreset) {
+        this.ctx.map?.setCenter(forkPreset.lat, forkPreset.lon, this.ctx.map.isGlobeMode() ? forkPreset.globeZoom : forkPreset.zoom);
+        trackMapViewChange(regionSelect.value);
+        return;
+      }
       this.ctx.map?.setView(regionSelect.value as MapView);
       trackMapViewChange(regionSelect.value);
     });
@@ -1554,7 +1560,7 @@ export class EventHandlerManager implements AppModule {
       const regionSelect = document.getElementById('regionSelect') as HTMLSelectElement;
       if (regionSelect && this.ctx.map) {
         const state = this.ctx.map.getState();
-        if (regionSelect.value !== state.view) {
+        if (!(regionSelect.value in FORK_VIEW_PRESETS) && regionSelect.value !== state.view) {
           regionSelect.value = state.view;
         }
       }
