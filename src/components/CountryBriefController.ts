@@ -1,4 +1,5 @@
 import { IS_EMBEDDED_PREVIEW } from '@/utils/embedded-preview';
+import { t } from '@/services/i18n';
 import { ZodError } from 'zod';
 import type { ChinaDecisionSignalSnapshot } from '../../shared/china-decision-signals';
 import type { ChinaCountrySummaryData, CountryBriefPanel, StockIndexData } from './CountryBriefPanel';
@@ -62,7 +63,9 @@ export class CountryBriefController {
     } catch (error) {
       if (!current()) return null;
       const state = error instanceof CountrySectionError ? error.state : 'unavailable';
-      const reason = state === 'locked' ? 'This section is not authorized by the current connection.' : 'This section could not be loaded. Retry to refresh it.';
+      const reason = state === 'locked'
+        ? t('cbf.ctrl.notAuthorized', { defaultValue: 'This section is not authorized by the current connection.' })
+        : t('cbf.ctrl.loadFailed', { defaultValue: 'This section could not be loaded. Retry to refresh it.' });
       let category: 'display_failure' | 'locked' | 'unavailable_response' | 'timeout' | 'invalid_response' | 'unknown_load_failure' = phase === 'apply' ? 'display_failure' : 'unknown_load_failure';
       try {
         category = phase === 'apply' ? 'display_failure'

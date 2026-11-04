@@ -154,6 +154,10 @@ async function loadCountryDeepDivePanel(options = {}) {
     `],
     ['i18n-stub', `
       export function t(key, params) {
+        // Fork: strings converted to t(key, { defaultValue }) must still read as English in these tests.
+        if (params && typeof params.defaultValue === 'string') {
+          return params.defaultValue.replace(/\\{\\{\\s*(\\w+)\\s*\\}\\}/g, (_m, name) => String(params[name] ?? ''));
+        }
         if (params && typeof params.count === 'number') {
           return key + ':' + params.count;
         }

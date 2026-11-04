@@ -942,24 +942,26 @@ export class CountryIntelManager implements AppModule {
     if ((signals.militaryVessels ?? 0) > 0) lines.push(t('countryBrief.fallback.vesselsTracked', { count: String(signals.militaryVessels) }));
     if (signals.activeStrikes > 0) lines.push(t('countryBrief.fallback.activeStrikes', { count: String(signals.activeStrikes) }));
     if (signals.travelAdvisoryMaxLevel === 'do-not-travel') {
-      lines.push(`⚠️ Travel advisory: Do Not Travel (${signals.travelAdvisories} source${signals.travelAdvisories > 1 ? 's' : ''})`);
+      const doNotTravelKey = signals.travelAdvisories > 1 ? 'cin.travelDoNotTravelPlural' : 'cin.travelDoNotTravel';
+      lines.push(t(doNotTravelKey, { count: signals.travelAdvisories, defaultValue: '⚠️ Travel advisory: Do Not Travel ({{count}} source)' }));
     } else if (signals.travelAdvisoryMaxLevel === 'reconsider') {
-      lines.push(`⚠️ Travel advisory: Reconsider Travel (${signals.travelAdvisories} source${signals.travelAdvisories > 1 ? 's' : ''})`);
+      const reconsiderKey = signals.travelAdvisories > 1 ? 'cin.travelReconsiderPlural' : 'cin.travelReconsider';
+      lines.push(t(reconsiderKey, { count: signals.travelAdvisories, defaultValue: '⚠️ Travel advisory: Reconsider Travel ({{count}} source)' }));
     }
     if (signals.outages > 0) lines.push(t('countryBrief.fallback.internetOutages', { count: String(signals.outages) }));
-    if (signals.criticalNews > 0) lines.push(`🚨 Critical headlines in scope: ${signals.criticalNews}`);
-    if (signals.cyberThreats > 0) lines.push(`🛡️ Cyber threat indicators: ${signals.cyberThreats}`);
-    if (signals.aisDisruptions > 0) lines.push(`🚢 Maritime AIS disruptions: ${signals.aisDisruptions}`);
-    if (signals.satelliteFires > 0) lines.push(`🔥 Satellite fire detections: ${signals.satelliteFires}`);
-    if (signals.radiationAnomalies > 0) lines.push(`☢️ Radiation anomalies: ${signals.radiationAnomalies}`);
-    if (signals.temporalAnomalies === null) lines.push('⏱️ Country temporal anomaly observations unavailable.');
-    else if (signals.temporalAnomalies > 0) lines.push(`⏱️ Observed country temporal anomalies: ${signals.temporalAnomalies}`);
+    if (signals.criticalNews > 0) lines.push(t('cin.criticalHeadlines', { count: signals.criticalNews, defaultValue: '🚨 Critical headlines in scope: {{count}}' }));
+    if (signals.cyberThreats > 0) lines.push(t('cin.cyberThreats', { count: signals.cyberThreats, defaultValue: '🛡️ Cyber threat indicators: {{count}}' }));
+    if (signals.aisDisruptions > 0) lines.push(t('cin.maritimeAisDisruptions', { count: signals.aisDisruptions, defaultValue: '🚢 Maritime AIS disruptions: {{count}}' }));
+    if (signals.satelliteFires > 0) lines.push(t('cin.satelliteFires', { count: signals.satelliteFires, defaultValue: '🔥 Satellite fire detections: {{count}}' }));
+    if (signals.radiationAnomalies > 0) lines.push(t('cin.radiationAnomalies', { count: signals.radiationAnomalies, defaultValue: '☢️ Radiation anomalies: {{count}}' }));
+    if (signals.temporalAnomalies === null) lines.push(t('cin.temporalAnomaliesUnavailable', { defaultValue: '⏱️ Country temporal anomaly observations unavailable.' }));
+    else if (signals.temporalAnomalies > 0) lines.push(t('cin.temporalAnomaliesObserved', { count: signals.temporalAnomalies, defaultValue: '⏱️ Observed country temporal anomalies: {{count}}' }));
     if ((signals.globalTemporalAnomalies ?? 0) > 0) {
-      lines.push(`Global context: ${signals.globalTemporalAnomalies} observed temporal anomalies; not attributed to this country.`);
+      lines.push(t('cin.globalTemporalContext', { count: signals.globalTemporalAnomalies, defaultValue: 'Global context: {{count}} observed temporal anomalies; not attributed to this country.' }));
     }
-    if (signals.thermalEscalations > 0) lines.push(`🌡️ Thermal escalation clusters: ${signals.thermalEscalations}`);
+    if (signals.thermalEscalations > 0) lines.push(t('cin.thermalEscalations', { count: signals.thermalEscalations, defaultValue: '🌡️ Thermal escalation clusters: {{count}}' }));
     if (signals.earthquakes > 0) lines.push(t('countryBrief.fallback.recentEarthquakes', { count: String(signals.earthquakes) }));
-    if (signals.orefHistory24h > 0) lines.push(`🚨 Sirens in past 24h: ${signals.orefHistory24h}`);
+    if (signals.orefHistory24h > 0) lines.push(t('cin.sirensPast24h', { count: signals.orefHistory24h, defaultValue: '🚨 Sirens in past 24h: {{count}}' }));
     if (typeof context.stockIndex === 'string' && context.stockIndex) {
       lines.push(t('countryBrief.fallback.stockIndex', { value: context.stockIndex }));
     }

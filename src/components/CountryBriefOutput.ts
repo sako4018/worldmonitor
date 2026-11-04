@@ -117,8 +117,8 @@ function downloadHtml(name: string, article: HTMLElement, title: string, lang?: 
 }
 
 export function createCountryBriefOutput(snapshot: BriefOutputSnapshot, kind: 'story' | 'report', onClose: () => void, deliver: CountryTextDownload = attemptWebCountryDownload, parentSignal?: AbortSignal): HTMLElement {
-  const output = h('section', { className: 'cdp-output', 'aria-label': kind === 'story' ? 'Create a country story' : 'Export country report' });
-  const close = h('button', { type: 'button', className: 'cdp-action-btn' }, '← Back to brief');
+  const output = h('section', { className: 'cdp-output', 'aria-label': kind === 'story' ? t('cbf.out.ariaStory', { defaultValue: 'Create a country story' }) : t('cbf.out.ariaReport', { defaultValue: 'Export country report' }) });
+  const close = h('button', { type: 'button', className: 'cdp-action-btn' }, t('cbf.out.back', { defaultValue: '← Back to brief' }));
   const cancellation = new AbortController();
   const signal = combineAbortSignals(parentSignal ? [parentSignal, cancellation.signal] : [cancellation.signal]);
   close.addEventListener('click', () => { cancellation.abort(); onClose(); });
@@ -128,14 +128,14 @@ export function createCountryBriefOutput(snapshot: BriefOutputSnapshot, kind: 's
   let selectedTopic: BriefTopic = 'all';
   let slide = 0;
   const selected = () => snapshot.sections.filter(section => selectedTopic === 'all' || section.topics.includes(selectedTopic));
-  const heading = () => h('header', {}, h('p', { className: 'cdp-country-subtitle' }, 'WORLD MONITOR · COUNTRY BRIEF'),
-    h('h1', {}, snapshot.country), h('p', { className: 'cdp-measure-note' }, `Captured ${new Date(snapshot.capturedAt).toLocaleString()} · ${snapshot.code}`));
+  const heading = () => h('header', {}, h('p', { className: 'cdp-country-subtitle' }, t('cbf.out.kicker', { defaultValue: 'WORLD MONITOR · COUNTRY BRIEF' })),
+    h('h1', {}, snapshot.country), h('p', { className: 'cdp-measure-note' }, t('cbf.out.captured', { defaultValue: 'Captured {{date}} · {{code}}', date: new Date(snapshot.capturedAt).toLocaleString(), code: snapshot.code })));
   const renderReport = (): void => {
     const sections = selected();
     const incomplete = sections.filter(section => section.state !== 'ready');
     paper.replaceChildren(heading(), h('div', { className: 'cdp-output-manifest' },
-      `${BRIEF_TOPICS[selectedTopic]} · ${sections.length} sections. This snapshot keeps each source date and the currently selected scenario/product. `,
-      incomplete.length ? `${incomplete.length} sections incomplete: ${incomplete.map(section => `${section.title} (${section.state})`).join(', ')}.` : 'All selected sections are available.'),
+      t('cbf.out.manifest', { defaultValue: '{{topic}} · {{count}} sections. This snapshot keeps each source date and the currently selected scenario/product. ', topic: t(`cbf.topic.${selectedTopic}`, { defaultValue: BRIEF_TOPICS[selectedTopic] }), count: sections.length }),
+      incomplete.length ? t('cbf.out.incomplete', { defaultValue: '{{count}} sections incomplete: {{list}}.', count: incomplete.length, list: incomplete.map(section => `${section.title} (${t(`cbf.out.state.${section.state}`, { defaultValue: section.state })})`).join(', ') }) : t('cbf.out.allAvailable', { defaultValue: 'All selected sections are available.' })),
     ...sections.map(section => section.content.cloneNode(true)));
   };
   const renderStory = (): void => {
@@ -143,17 +143,17 @@ export function createCountryBriefOutput(snapshot: BriefOutputSnapshot, kind: 's
     paper.replaceChildren(heading(), h('div', { className: 'cdp-output-story-slide' },
       h('p', { className: 'cdp-country-subtitle' }, `${slide + 1} / ${snapshot.story.length}`),
       h('h2', {}, item.title), item.content.cloneNode(true)),
-    h('p', { className: 'cdp-output-manifest' }, 'A snapshot of this country brief. Source dates and evidence coverage vary. See the full report for supporting details.'));
+    h('p', { className: 'cdp-output-manifest' }, t('cbf.out.storyNote', { defaultValue: 'A snapshot of this country brief. Source dates and evidence coverage vary. See the full report for supporting details.' })));
   };
   if (kind === 'report') {
-    const scope = h('select', { 'aria-label': 'Report scope' }) as HTMLSelectElement;
-    for (const [topic, label] of Object.entries(BRIEF_TOPICS)) scope.append(h('option', { value: topic, selected: topic === 'all' }, topic === 'overview' ? 'Overview & scores' : label));
+    const scope = h('select', { 'aria-label': t('cbf.out.scope', { defaultValue: 'Report scope' }) }) as HTMLSelectElement;
+    for (const [topic, label] of Object.entries(BRIEF_TOPICS)) scope.append(h('option', { value: topic, selected: topic === 'all' }, topic === 'overview' ? t('cbf.out.scopeOverview', { defaultValue: 'Overview & scores' }) : t(`cbf.topic.${topic}`, { defaultValue: label })));
     scope.addEventListener('change', () => { selectedTopic = scope.value as BriefTopic; renderReport(); });
-    controls.append(h('label', {}, 'Report scope', scope));
+    controls.append(h('label', {}, t('cbf.out.scope', { defaultValue: 'Report scope' }), scope));
     renderReport();
   } else {
-    const previous = h('button', { type: 'button', 'aria-label': 'Previous story slide' }, '←');
-    const next = h('button', { type: 'button', 'aria-label': 'Next story slide' }, '→');
+    const previous = h('button', { type: 'button', 'aria-label': t('cbf.out.prevSlide', { defaultValue: 'Previous story slide' }) }, '←');
+    const next = h('button', { type: 'button', 'aria-label': t('cbf.out.nextSlide', { defaultValue: 'Next story slide' }) }, '→');
     const counter = h('span', {}, `1 / ${snapshot.story.length}`);
     const change = (step: number): void => {
       slide = (slide + step + snapshot.story.length) % snapshot.story.length;
@@ -162,14 +162,14 @@ export function createCountryBriefOutput(snapshot: BriefOutputSnapshot, kind: 's
     };
     previous.addEventListener('click', () => change(-1));
     next.addEventListener('click', () => change(1));
-    controls.append(h('p', {}, 'One country snapshot. Review every slide before downloading.'), previous, counter, next);
+    controls.append(h('p', {}, t('cbf.out.storyIntro', { defaultValue: 'One country snapshot. Review every slide before downloading.' })), previous, counter, next);
     renderStory();
   }
-  const download = h('button', { type: 'button', className: 'cdp-action-btn cdp-export-primary' }, kind === 'story' ? 'Download story HTML' : 'Download report HTML') as HTMLButtonElement;
+  const download = h('button', { type: 'button', className: 'cdp-action-btn cdp-export-primary' }, kind === 'story' ? t('cbf.out.downloadStory', { defaultValue: 'Download story HTML' }) : t('cbf.out.downloadReport', { defaultValue: 'Download report HTML' })) as HTMLButtonElement;
   download.addEventListener('click', async () => {
     if (download.disabled || signal.aborted) return;
     download.disabled = true;
-    status.textContent = 'Download requested. Waiting for confirmation.';
+    status.textContent = t('cbf.out.requested', { defaultValue: 'Download requested. Waiting for confirmation.' });
     try {
       const article = kind === 'report' ? paper : h('article', { className: 'cdp-output-paper' }, heading(),
         ...snapshot.story.map(item => h('section', { className: 'cdp-output-story-slide' }, h('h2', {}, item.title), item.content.cloneNode(true))));
@@ -181,7 +181,7 @@ export function createCountryBriefOutput(snapshot: BriefOutputSnapshot, kind: 's
     } finally { if (!signal.aborted) download.disabled = false; }
   });
   controls.append(download, status);
-  output.append(h('header', { className: 'cdp-output-header' }, close, h('h2', {}, kind === 'story' ? 'Create a story' : 'Export report')),
+  output.append(h('header', { className: 'cdp-output-header' }, close, h('h2', {}, kind === 'story' ? t('cbf.out.titleStory', { defaultValue: 'Create a story' }) : t('cbf.out.titleReport', { defaultValue: 'Export report' }))),
     h('div', { className: 'cdp-output-layout' }, controls, paper));
   return output;
 }
