@@ -25,7 +25,8 @@ The upstream `AGENTS.md` above is the main engineering guide (architecture bound
 - Look: `src/styles/fork-theme.css` (imported at the top of `main.css`) overrides theme tokens with `html:root` / `html[data-theme]` specificity, removes forced uppercase with one `!important` rule, and puts Helvetica Neue first (SF Pro turns Cyrillic into Bulgarian letter shapes under `lang="bg"`; the owner wants standard shapes). System font is the default in `src/services/font-settings.ts`.
 - Border files must have RFC 7946 winding (exterior rings counter-clockwise, holes clockwise). Natural Earth is clockwise; the flat map does not care but the 3D globe then fills the whole sphere red. `scripts/fetch-world-boundary-overrides.mjs` rewinds every ring.
 - Map defaults: `DEFAULT_MAP_MODE = 'globe'` (`src/config/variants/base.ts`) and the desktop start view `DEFAULT_DESKTOP_VIEW = 'eu'` (`src/config/fork.ts`). The globe loads lazily (~20 s in dev) and then rotates to the view.
-- Screenshots: the owner works on the Mac at the same time, so prefer headless Chrome (`--headless=new --screenshot`) over full-screen captures; it does not draw the WebGL map.
+- Satellite/terrain basemaps: provider `imagery` in `src/config/basemap.ts` + `buildImageryStyle()` in `src/config/basemap-styles.ts` (Esri World Imagery / World Topo + Esri reference labels). CARTO raster labels need an API key (watermarks the whole map) - do not use them.
+- Screenshots: the owner works on the Mac at the same time, so never take full-screen captures (they grab whatever the owner is doing). Use Playwright with system Chrome in the background: `chromium.launch({channel:'chrome', headless:true, args:['--use-angle=metal','--ignore-gpu-blocklist','--enable-gpu']})` gives WebGL2, so deck.gl and the globe render.
 - The `.husky` hooks are not active here (`core.hooksPath` unset).
 
 ## Running locally (macOS, Node 24 from `.nvmrc`)
