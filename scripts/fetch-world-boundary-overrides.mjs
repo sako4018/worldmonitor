@@ -28,6 +28,22 @@ const OUT_FILE = join(DATA_DIR, 'country-boundary-overrides-world.geojson');
 // 4 decimals ≈ 11 m — far below what the map can show, and keeps the file small.
 const round = (value) => (Array.isArray(value) ? value.map(round) : Math.round(value * 1e4) / 1e4);
 
+// Natural Earth rings run clockwise (old GeoJSON spec); the bundled countries.geojson and the
+// 3D globe (spherical maths) expect RFC 7946: exterior rings counter-clockwise, holes clockwise.
+// With the wrong winding the globe fills the whole sphere instead of the country.
+const ringArea = (ring) => {
+  let sum = 0;
+  for (let i = 0; i < ring.length - 1; i++) sum += ring[i][0] * ring[i + 1][1] - ring[i + 1][0] * ring[i][1];
+  return sum / 2;
+};
+const orient = (ring, wantCcw) => ((ringArea(ring) > 0) === wantCcw ? ring : [...ring].reverse());
+const rewindPolygon = (rings) => rings.map((ring, i) => orient(ring, i === 0));
+function rewind(geometry) {
+  if (geometry.type === 'Polygon') return { type: 'Polygon', coordinates: rewindPolygon(geometry.coordinates) };
+  if (geometry.type === 'MultiPolygon') return { type: 'MultiPolygon', coordinates: geometry.coordinates.map(rewindPolygon) };
+  return geometry;
+}
+
 function iso2Of(props) {
   // Natural Earth uses -99 in ISO_A2 for a few countries (France, Norway, Kosovo); ISO_A2_EH fills those in.
   for (const key of ['ISO_A2', 'ISO_A2_EH']) {
@@ -65,7 +81,7 @@ async function main() {
         'ISO3166-1-Alpha-2': code,
         'ISO3166-1-Alpha-3': props['ISO3166-1-Alpha-3'],
       },
-      geometry: { type: f.geometry.type, coordinates: round(f.geometry.coordinates) },
+      geometry: rewind({ type: f.geometry.type, coordinates: round(f.geometry.coordinates) }),
     });
   }
 
