@@ -12,7 +12,7 @@ export function getFontFamily(): FontFamily {
   } catch {
     // ignore
   }
-  return 'mono';
+  return 'system'; // fork (sako4018): system font by default
 }
 
 export function setFontFamily(font: FontFamily): void {

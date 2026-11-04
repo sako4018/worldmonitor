@@ -1,6 +1,7 @@
 @import './rtl-overrides.css';
 @import './panels.css';
 @import './route-explorer.css';
+@import './fork-theme.css'; /* fork (sako4018): clean look */
 
 /* ============================================================
    Theme Colors — overridden by [data-theme="light"] below
