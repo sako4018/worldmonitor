@@ -155,7 +155,7 @@ export function buildArticlePrompts(
   // The handler refuses any other lang; the allowlist check here keeps a
   // free-form value out of the system prompt for every other caller too.
   const langInstruction = opts.lang && opts.lang !== 'en' && SUMMARY_OUTPUT_LANGUAGES.has(opts.lang)
-    ? `\nIMPORTANT: Output the summary in ${opts.lang.toUpperCase()} language.`
+    ? `\nIMPORTANT: Output the summary in ${translateLanguageName(opts.lang)}.`
     : '';
 
   let systemPrompt: string;

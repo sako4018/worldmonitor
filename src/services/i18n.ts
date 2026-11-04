@@ -182,6 +182,13 @@ export async function initI18n({ waitForFullTranslation = false }: { waitForFull
     cacheUserLanguage: () => { /* writes go through explicit changeLanguage() */ },
   });
 
+  // Fork: Bulgarian is the default when no ?lang= and no explicit choice.
+  detector.addDetector({
+    name: 'wmDefault',
+    lookup: () => 'bg',
+    cacheUserLanguage: () => { /* never persisted */ },
+  });
+
   await i18next
     .use(detector)
     .init({
@@ -196,7 +203,7 @@ export async function initI18n({ waitForFullTranslation = false }: { waitForFull
         escapeValue: false, // not needed for these simple strings
       },
       detection: {
-        order: ['wmQuery', 'wmExplicit', 'navigator'],
+        order: ['wmQuery', 'wmExplicit', 'wmDefault'],
         caches: [], // never auto-write — only changeLanguage() persists
       },
     });
